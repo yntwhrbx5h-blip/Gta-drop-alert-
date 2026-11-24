@@ -14,10 +14,11 @@ jobs:
         run: |
           python - <<'PY'
           import os, json, urllib.request
-          url = "https://api.telegram.org/bot" + os.environ["TOKEN"] + "/getUpdates"
+          token = os.environ["TOKEN"].strip()
+          url = "https://api.telegram.org/bot" + token + "/getUpdates"
           data = json.loads(urllib.request.urlopen(url).read())
           for update in data.get("result", []):
               msg = update.get("message", {})
               if msg.get("chat"):
                   print("IL TUO CHAT ID:", msg["chat"]["id"])
-          PY
+                  PY
